@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You, With Love</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+:root {
+    --pink: #ff6f91;
+    --pink-soft: #ff9ab3;
+}
+
+/* Reset */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    min-height: 100svh;
+    font-family: 'Poppins', system-ui, sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ffb199, #fbc2eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* Soft overlay */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(255,255,255,0.22), transparent 60%);
+    pointer-events: none;
+}
+
+/* Floating Names */
+.name {
+    position: fixed;
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.25;
+    pointer-events: none;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    from { transform: translateY(110vh); }
+    to { transform: translateY(-15vh); }
+}
+
+/* ===================== */
+/* ATTRACTIVE CARD BOX  */
+/* ===================== */
+.card {
+    width: 92%;
+    max-width: 380px;
+
+    background: linear-gradient(
+        160deg,
+        rgba(255,255,255,0.35),
+        rgba(255,182,193,0.28),
+        rgba(255,255,255,0.18)
+    );
+
+    backdrop-filter: blur(18px);
+    border-radius: 26px;
+    padding: 26px 22px;
+
+    border: 1.5px solid rgba(255,255,255,0.45);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.18),
+        0 0 40px rgba(255,105,135,0.55);
+
+    animation: fadeIn 0.6s ease, softGlow 6s ease-in-out infinite;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Card glow animation */
+@keyframes softGlow {
+    0%, 100% {
+        box-shadow:
+            0 20px 50px rgba(0,0,0,0.18),
+            0 0 35px rgba(255,105,135,0.45);
+    }
+    50% {
+        box-shadow:
+            0 22px 55px rgba(0,0,0,0.22),
+            0 0 55px rgba(255,105,135,0.75);
+    }
+}
+
+/* Text */
+h1 {
+    font-size: 1.35rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.6;
+    opacity: 0.95;
+}
+
+.progress {
+    font-size: 0.8rem;
+    opacity: 0.75;
+    margin-bottom: 8px;
+}
+
+/* Options */
+.option {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    font-size: 0.95rem;
+    color: #fff;
+    background: linear-gradient(135deg, var(--pink), var(--pink-soft));
+    cursor: pointer;
+}
+
+.option.selected {
+    background: linear-gradient(135deg, #ffd1dc, #ff9ab3);
+    color: #7a1c2e;
+}
+
+/* Navigation */
+.nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.nav button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 18px;
+    border: none;
+    font-size: 0.85rem;
+    background: rgba(255,255,255,0.28);
+    color: #fff;
+}
+
+/* Signature */
+.signature {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Music Button */
+.music-btn {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.3);
+    color: #fff;
+    font-size: 18px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile fine-tuning */
+@media (max-width: 360px) {
+    h1 { font-size: 1.25rem; }
+    p { font-size: 0.95rem; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="Ishq Hai(KoshalWorld.Com).mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<!-- ===== CONTENT (UNCHANGED) ===== -->
+
+<div class="card" data-step="1">
+    <h1>❤️ For You, Always ❤️.</h1>
+    <p>
+        I don’t want anything from you.<br>
+        I just want this year to be gentle with your heart,<br>
+        kind to your mind, and soft on your soul I don’t want perfection.
+I just want us
+growing slowly,
+healing gently,
+and choosing each other 💐 🌸
+    </p>
+    <button class="option" onclick="start()">Begin gently</button>
+</div>
+
+<div class="card hidden" data-step="2">
+    <div class="progress">A small question, from my heart</div>
+    <h1>To you, what does love truly feel like?</h1>
+    <button class="option">Being understood without explaining</button>
+    <button class="option">Feeling safe, respected, and valued</button>
+    <button class="option">A calm place where the heart can rest 🤍</button>
+    <div class="nav">
+        <button onclick="goBack()">Back</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+
+<div class="card hidden" data-step="3">
+    <div class="progress">Another gentle thought</div>
+    <h1>On days when life feels heavy…</h1>
+    <p>What comforts you the most?</p>
+    <button class="option">Someone who listens with patience</button>
+    <button class="option">Someone who stays without being asked</button>
+    <button class="option">Quiet care and silent understanding 🌙</button>
+    <div class="nav">
+        <button onclick="goBack()">Back</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+
+<div class="card hidden" data-step="4">
+    <div class="progress">Something very important</div>
+    <h1>What makes you feel deeply special?</h1>
+    <button class="option">Being chosen, even on hard days</button>
+    <button class="option">Small efforts done with love</button>
+    <button class="option">Consistent care and respect 💗</button>
+    <div class="nav">
+        <button onclick="goBack()">Back</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+
+<div class="card hidden" data-step="5">
+    <div class="progress">Just one more</div>
+    <h1>What do you wish to feel more this year?</h1>
+    <button class="option">Peace in my heart</button>
+    <button class="option">Patience with myself</button>
+    <button class="option">Soft, genuine love ✨</button>
+    <div class="nav">
+        <button onclick="goBack()">Back</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+
+<div class="card hidden" data-step="6">
+    <div class="progress">From me to you</div>
+    <h1>What should never change between us?</h1>
+    <button class="option">Care and honesty</button>
+    <button class="option">Respect and understanding</button>
+    <button class="option">Us, choosing each other 🤍</button>
+    <div class="nav">
+        <button onclick="goBack()">Back</button>
+        <button onclick="goNext()">Next</button>
+    </div>
+</div>
+
+<div class="card hidden" data-step="7">
+    <h1 style="color: blue;"> Happy  New Year, my love ✨</h1>
+    <p>
+        As we step into this new year, I just want you to know that you are my everything. Every moment with you is a dream come true, and I promise to fill this year with endless love, laughter, and care for you. You make my world brighter, my heart fuller, and my life so much more beautiful. 💖
+Here’s to more memories, more smiles, and a love that grows stronger every day. I love you more than words can say. ❤️
+    </p>
+    <div class="signature"> Amar</div>
+</div>
+
+<script>
+let current = 1;
+const cards = document.querySelectorAll('.card');
+const music = document.getElementById("bgMusic");
+
+function show(step) {
+    cards.forEach(c => c.classList.add('hidden'));
+    document.querySelector(`.card[data-step="${step}"]`).classList.remove('hidden');
+    current = step;
+}
+
+function start() {
+    music.volume = 0.35;
+    music.play();
+    show(2);
+}
+
+function goNext() { if (current < 7) show(current + 1); }
+function goBack() { if (current > 1) show(current - 1); }
+function toggleMusic() { music.paused ? music.play() : music.pause(); }
+
+// Floating names
+setInterval(() => {
+    const n = document.createElement("div");
+    n.className = "name";
+    n.innerText = Math.random() > 0.5 ? "Amar ❤️ Surbhi" : "Surbhi ❤️ Amar";
+    n.style.left = Math.random() * 100 + "vw";
+    n.style.animationDuration = (Math.random() * 6 + 10) + "s";
+    document.body.appendChild(n);
+    setTimeout(() => n.remove(), 12000);
+}, 1200);
+
+// Option highlight
+document.querySelectorAll('.option').forEach(btn => {
+    btn.addEventListener('click', () => {
+        btn.parentElement.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+    });
+});
+</script>
+
+</body>
+</html>
